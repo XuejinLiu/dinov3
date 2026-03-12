@@ -18,7 +18,7 @@ from dinov3.hub.backbones import (
 )
 from dinov3.hub.classifiers import dinov3_vit7b16_lc
 from dinov3.hub.depthers import dinov3_vit7b16_dd, dinov3_vitl16_chmv2
-from dinov3.hub.detectors import dinov3_vit7b16_de
+from dinov3.hub.detectors import dinov3_vit7b16_de, dinov3_vitl16plus_de
 from dinov3.hub.dinotxt import dinov3_vitl16_dinotxt_tet1280d20h24l
 from dinov3.hub.segmentors import dinov3_vit7b16_ms
 

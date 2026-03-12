@@ -130,3 +130,34 @@ def dinov3_vit7b16_de(
         check_hash=check_hash,
         **kwargs,
     )
+
+
+def dinov3_vitl16plus_de(
+    *,
+    pretrained: bool = True,
+    weights: DetectionWeights | str = DetectionWeights.COCO2017,
+    backbone_weights: BackboneWeights | str = BackboneWeights.LVD1689M,
+    check_hash: bool = False,
+    **kwargs,
+):
+    """
+    Object detector built on top of a DINOv3 ViT-L/16+ backbone and a DETR-based detection head.
+
+    The model takes a list of (3, H, W) normalized image tensors and returns a list of dicts,
+    each containing "scores", "labels", and "boxes" (XYXY format).
+
+    Args:
+        pretrained: Whether to load pretrained weights for both the backbone and detection head.
+        weights: Detection head weights. Defaults to COCO2017.
+        backbone_weights: Backbone weights. Defaults to LVD1689M.
+        check_hash: Whether to verify the downloaded checkpoint hash.
+        **kwargs: Additional arguments forwarded to the detector builder.
+    """
+    return _make_dinov3_detector(
+        backbone_name="dinov3_vitl16plus",
+        pretrained=pretrained,
+        detector_weights=weights,
+        backbone_weights=backbone_weights,
+        check_hash=check_hash,
+        **kwargs,
+    )

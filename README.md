@@ -1,3 +1,5 @@
+:new: [2026-04-10] :art: A new [`generate_lens_design.py`](#cosmetic-contact-lens-design-reconstruction) script is available for reconstructing cosmetic contact lens (美瞳) patterns as PNG images using Stable Diffusion or a high-quality procedural fBm renderer.
+
 :new: [2026-03-10] :fire: The [Canopy Height Maps v2 (CHMv2) model](https://arxiv.org/abs/2603.06382) and inference code are now available (more details on downloading the model weights and using the code [here](#canopy-height-maps-v2-chmv2)). Building on our original high-resolution canopy height maps released in 2024, CHMv2 delivers substantial improvements in accuracy, detail, and global consistency by leveraging DINOv3
 
 [2025-11-20] Distillation code and configurations for ConvNeXt backbones are now released!
@@ -852,3 +854,51 @@ If you find this repository useful, please consider giving a star :star: and cit
   url={https://arxiv.org/abs/2508.10104},
 }
 ```
+
+---
+
+## Cosmetic Contact Lens Design Reconstruction
+
+`generate_lens_design.py` reconstructs a cosmetic contact lens (美瞳) pattern as a
+1024 × 1024 RGBA PNG using either:
+
+| Mode | Description |
+|------|-------------|
+| **Stable Diffusion** (default) | Uses [`stabilityai/sd-turbo`](https://huggingface.co/stabilityai/sd-turbo) via `diffusers`; falls back to SD-1.5. Requires optional deps. |
+| **Procedural fBm** (`--procedural`) | Pure-Python renderer using fractional Brownian Motion noise. No extra GPU or model weights needed. |
+
+### Design characteristics reproduced
+
+- Deep grape-purple outer lock ring (dense dot-matrix texture)
+- Cold purple-grey radial gradient (outer-dark → inner-light)
+- Fine diamond/mesh dot-matrix base layer
+- Radial fibre streaks (angular fBm noise)
+- Heavier brush strokes on the lower half
+- Transparent pupil hole with soft-feathered edges
+
+### Quick start
+
+```bash
+# 1. Install base dependencies (numpy + Pillow are enough for --procedural)
+pip install numpy pillow
+
+# 2a. Procedural renderer (no GPU required)
+python generate_lens_design.py --procedural
+
+# 2b. Stable Diffusion (requires GPU recommended)
+pip install diffusers accelerate transformers
+python generate_lens_design.py
+
+# Custom resolution / output path
+python generate_lens_design.py --procedural --size 2048 --output outputs/lens.png
+```
+
+The output is saved to `lens_design_output.png` by default.
+
+### CLI reference
+
+| Flag | Default | Description |
+|------|---------|-------------|
+| `--procedural` | off | Force the procedural fBm renderer (no diffusion model) |
+| `--output PATH` | `lens_design_output.png` | Destination PNG file |
+| `--size N` | `1024` | Canvas width & height in pixels |

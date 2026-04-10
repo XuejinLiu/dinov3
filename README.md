@@ -852,3 +852,37 @@ If you find this repository useful, please consider giving a star :star: and cit
   url={https://arxiv.org/abs/2508.10104},
 }
 ```
+
+---
+
+## Cosmetic Lens Pattern Generator
+
+`generate_lens_pattern.py` is a self-contained Python script that programmatically
+reconstructs a **cosmetic colored contact lens pattern** (美瞳设计图) based on
+visual analysis of a real lens photograph.
+
+The rendered design approximates:
+- Cool purple-gray base palette
+- Dark outer limbal ring built from a dense dot-matrix texture
+- Radial feather-like streaks across the full iris zone
+- Darker brush-like accent sweeps concentrated in the lower half
+- Soft, feathered transparent pupil opening
+
+### Outputs
+
+| File | Description |
+|------|-------------|
+| `outputs/lens_pattern.png` | 3000 × 3000 px RGBA raster image |
+| `outputs/lens_pattern.svg` | Scalable vector graphic (1200 × 1200 viewBox) |
+
+### How to run
+
+```bash
+# Install dependencies (NumPy, Matplotlib, Pillow)
+pip install numpy matplotlib Pillow
+
+# Generate the pattern
+python generate_lens_pattern.py
+```
+
+The script creates the `outputs/` directory automatically and writes both files.
